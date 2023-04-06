@@ -1,9 +1,54 @@
 const images = document.querySelectorAll('img');
+const wrapper = document.querySelector("body");
+const button = document.querySelector('button');
+const imgBlock = document.querySelector('.images_block');
 
-for (let img of images) {
-    img.addEventListener('click', (e) => {
-        img.classList.toggle('active');
-        console.log(e);
-    })
+button.addEventListener('click', () => {
+    const image = document.createElement('img');
+    image.src = 'http://placekitten.com/g/200/200';
+    randomAlt(image);
+    image.addEventListener('click', (e) => handler(e.target));
+    imgBlock.appendChild(image);
+})
+
+wrapper.addEventListener('click', () => {
+    for (let img of images) {
+        img.classList.remove('active');
+    }
+});
+
+function randomAlt(elem) {
+    fetch("https://random-word-api.herokuapp.com/word?number=1")
+        .then(response => response.json())
+        .then(result => elem.alt = result);
 }
 
+function handler(img) {
+    const inputField = document.createElement('div');
+    inputField.style.cssText = "position: absolute; top: 0; display: flex; flex-direction: column; padding: 5px; z-index: 9999";
+    const input = document.createElement('input');
+    input.value = img.alt;
+    const submitButton = document.createElement('button');
+    submitButton.textContent = "Изменить";
+    submitButton.addEventListener('click', () => {
+        img.alt = input.value;
+        img.classList.add('edited');
+        inputField.remove();
+    })
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = "Отменить";
+    cancelButton.addEventListener('click', () => inputField.remove())
+    inputField.appendChild(input);
+    inputField.appendChild(submitButton);
+    inputField.appendChild(cancelButton);
+    wrapper.appendChild(inputField);
+}
+
+for (let img of images) {
+    randomAlt(img);
+}
+
+for (let img of images) {
+    img.addEventListener('click', (e) => handler(e.target))
+    
+}
