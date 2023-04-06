@@ -27,11 +27,6 @@ img {
     
 }
 
-.active {
-    transition: 0.3s;
-    border: 5px solid rgb(238, 245, 9);
-}
-
 .edited {
     box-shadow: 0px 0px 0px 5px rgb(43, 255, 0);
 }

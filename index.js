@@ -11,12 +11,6 @@ button.addEventListener('click', () => {        // handler of "Add" button and a
     imgBlock.appendChild(image);
 })
 
-wrapper.addEventListener('click', () => {       // click on that element removes active border from image
-    for (let img of images) {
-        img.classList.remove('active');
-    }
-});
-
 function randomAlt(elem) {                     // gives random words for alt attr on images
     fetch("https://random-word-api.herokuapp.com/word?number=1")
         .then(response => response.json())
