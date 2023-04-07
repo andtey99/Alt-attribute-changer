@@ -1,4 +1,4 @@
-const images = document.querySelectorAll('img');
+﻿const images = document.querySelectorAll('img');
 const wrapper = document.querySelector("body");
 const button = document.querySelector('button');
 const imgBlock = document.querySelector('.images_block');
@@ -19,7 +19,7 @@ function randomAlt(elem) {                     // gives random words for alt att
 
 function handler(img) {                         // img click handler
     const inputField = document.createElement('div');
-    inputField.style.cssText = "position: absolute; top: 0; display: flex; flex-direction: column; padding: 5px; z-index: 9999";
+    inputField.style.cssText = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; padding: 5px; z-index: 9999";
     const input = document.createElement('input');
     input.value = img.alt;
     const submitButton = document.createElement('button');
@@ -27,6 +27,7 @@ function handler(img) {                         // img click handler
     submitButton.addEventListener('click', () => {
         img.alt = input.value;
         img.classList.add('edited');
+        img.style.cssText = "box-shadow: 0px 0px 0px 5px rgb(43, 255, 0);";
         inputField.remove();
     })
     const cancelButton = document.createElement('button');
