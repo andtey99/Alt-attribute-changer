@@ -8,7 +8,7 @@ let observer = new MutationObserver(() => {
     images = document.querySelectorAll('img');
     for (let i = count; i < images.length; i++) {       // handler for images that already on page
         randomAlt(images[i]);
-        images[i].addEventListener('click', (e) => handler(e.target))
+        images[i].addEventListener('click', (e) => handler(e))
     }
     count = images.length;
   });
@@ -37,13 +37,13 @@ function randomAlt(elem) {                     // gives random words for alt att
 
 function handler(img) {                         // img click handler
     const inputField = document.createElement('div');
-    inputField.style.cssText = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; padding: 5px; z-index: 9999";
+    inputField.style.cssText = `position: absolute; top: ${img.pageY}px; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; padding: 5px; z-index: 9999`;
     const input = document.createElement('input');
-    input.value = img.alt;
+    input.value = img.target.alt;
     const submitButton = document.createElement('button');
     submitButton.textContent = "Изменить";
     submitButton.addEventListener('click', () => {
-        img.alt = input.value;
+        img.target.alt = input.value;
         inputField.remove();
     })
     const cancelButton = document.createElement('button');
@@ -60,6 +60,6 @@ for (let img of images) {       // random alt attr for images that already on pa
 }
 
 for (let img of images) {       // handler for images that already on page
-    img.addEventListener('click', (e) => handler(e.target))
+    img.addEventListener('click', (e) => handler(e))
 }
 })();
